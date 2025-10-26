@@ -17,7 +17,7 @@ Here are some screenshots of API testing using Insomnia:
 ### 2. Login
 ![login](assets/login.png)
 
-### 2. Login
+### 2. Login in mongodb
 ![login](assets/loginmongodb.png)
 
 ### 3. Add Employee
