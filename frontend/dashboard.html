@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+  <h2>Employee Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+  <h3>Add Employee</h3>
+  <input id="name" placeholder="Name"><br>
+  <input id="position" placeholder="Position"><br>
+  <input id="salary" placeholder="Salary"><br>
+  <button onclick="addEmployee()">Add</button>
+  <h3>Employees List</h3>
+  <ul id="list"></ul>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) window.location = 'login.html';
+
+    async function fetchEmployees() {
+      const res = await fetch('http://localhost:5000/api/employees', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const data = await res.json();
+      document.getElementById('list').innerHTML = data.map(e =>
+        `<li>${e.name} - ${e.position} - ${e.salary}
+          <button onclick="updateEmployee('${e._id}')">Update</button>
+          <button onclick="deleteEmployee('${e._id}')">Delete</button>
+        </li>`).join('');
+    }
+
+    async function addEmployee() {
+      const res = await fetch('http://localhost:5000/api/employees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          name: document.getElementById('name').value,
+          position: document.getElementById('position').value,
+          salary: document.getElementById('salary').value
+        })
+      });
+      await res.json();
+      fetchEmployees();
+    }
+
+    async function updateEmployee(id) {
+      const newPosition = prompt('Enter new position:');
+      await fetch(`http://localhost:5000/api/employees/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ position: newPosition })
+      });
+      fetchEmployees();
+    }
+
+    async function deleteEmployee(id) {
+      await fetch(`http://localhost:5000/api/employees/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      fetchEmployees();
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location = 'login.html';
+    }
+
+    fetchEmployees();
+  </script>
+</body>
+</html>
