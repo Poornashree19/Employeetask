@@ -8,17 +8,30 @@
 
 Here are some screenshots of API testing using Insomnia:
 
-## 1. Add Employee
+## API Testing with Insomnia
 
-## 2. Get All Employees
 
-## 3. Update Employee
+### 1. Signup
+![Sign up](assets/signup.png)
 
-## 4. Delete Employee
+### 2. Login
+![login](assets/login.png)
 
-## 5. Add Task
+### 2. Login
+![login](assets/loginmongodb.png)
 
-## 6. Get All Tasks
+### 3. Add Employee
+![add Employee](assets/dashboard.png)
+
+### 3. Update Employee in mongodb
+![Update Employee](assets/addmongodb.png)
+
+### 4. Delete Employee
+![Delete Employee](assets/deleted.png)
+
+### 5. Delete Employee in mongodb
+![Delete Employee](assets/deletedmongodb.png)
+
 
 
 ##  Setup Steps
